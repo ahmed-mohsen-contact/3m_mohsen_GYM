@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens (Tailwind v4 @theme -> generates utilities)          */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Brand: ember orange — the primary gym accent */
+  --color-brand-300: #ffb27d;
+  --color-brand-400: #ff8a47;
+  --color-brand-500: #ff5c1f;
+  --color-brand-600: #e8460e;
+  --color-brand-700: #b8370d;
+
+  /* Volt: lime high-energy secondary accent */
+  --color-volt-300: #d7ff4f;
+  --color-volt-400: #b6f214;
+  --color-volt-500: #94d90d;
+
+  /* Typography */
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-display:
+    "Oswald", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-zinc-950 text-zinc-200 antialiased;
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    @apply bg-brand-500/40 text-white;
+  }
+
+  /* Kick off the scroll-reveal animation for everything with .reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Slim, dark scrollbars that fit the gym theme */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3f3f46 transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #52525b;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Reusable component classes (used across pages/components)          */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400 disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-brand-500 text-white hover:bg-brand-600;
+  }
+  .btn-volt {
+    @apply bg-volt-400 text-zinc-950 hover:bg-volt-300;
+  }
+  .btn-secondary {
+    @apply border border-zinc-700 bg-zinc-900 text-zinc-200 hover:bg-zinc-800;
+  }
+  .btn-ghost {
+    @apply text-zinc-300 hover:bg-zinc-800 hover:text-white;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100 transition outline-none placeholder:text-zinc-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30;
+  }
+  .input-error {
+    @apply border-red-500/70 focus:border-red-500 focus:ring-red-500/30;
+  }
+  .label {
+    @apply text-xs font-semibold uppercase tracking-wider text-zinc-400;
+  }
+}
