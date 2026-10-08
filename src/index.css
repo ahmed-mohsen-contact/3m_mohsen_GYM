@@ -41,14 +41,18 @@
     @apply bg-brand-500/40 text-white;
   }
 
-  /* Kick off the scroll-reveal animation for everything with .reveal */
+  /* Scroll-reveal — visible by default so content is NEVER stuck hidden if
+     scripts fail or IntersectionObserver misfires. JS opts into the animation
+     by adding `.reveal-pending`, then `.is-revealed`. */
   .reveal {
-    opacity: 0;
-    transform: translateY(24px);
     transition:
       opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity, transform;
+  }
+
+  .reveal.reveal-pending {
+    opacity: 0;
+    transform: translateY(24px);
   }
 
   .reveal.is-revealed {
@@ -61,7 +65,9 @@
     html {
       scroll-behavior: auto;
     }
-    .reveal {
+    .reveal,
+    .reveal.reveal-pending,
+    .reveal.is-revealed {
       opacity: 1;
       transform: none;
       transition: none;

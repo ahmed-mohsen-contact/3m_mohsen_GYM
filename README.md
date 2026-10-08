@@ -20,6 +20,18 @@ npm run preview  # serve the production build locally
 npm run lint     # oxlint
 ```
 
+### Deploying
+
+The app uses **hash-based routing** (`HashRouter`), so it works on **any** static
+host with no server configuration: the server only ever serves `/`, and the
+route lives after the `#` (e.g. `/#/classes`). Refreshing or sharing a deep link
+never causes a 404.
+
+Just build and upload `dist/` (Vercel, Netlify, GitHub Pages, S3, Nginx, …).
+
+> `vercel.json` and `public/_redirects` are included as harmless extras for hosts
+> that prefer path-based rewrites; they are not required for the app to work.
+
 ### Demo accounts
 
 The Login page has one-click demo logins; you can also type these directly:
